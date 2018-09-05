@@ -28,6 +28,7 @@ class App extends Component {
             foundUserLocation: true,
           }
         });
+
       })
     }else{
       // give map longitude and latitude of Londom 
