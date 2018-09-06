@@ -1,50 +1,66 @@
 import React, { createRef, Component } from 'react'
 import './Map.scss';
+import axios from 'axios';
 import { Map, TileLayer, Marker } from 'react-leaflet'
+
 import PostFeed from '../PostFeed';
 
 export default class MapComp extends Component {
 
   state = {
     posts: [],
-    location: ''
+    location: '',
+    loaded: false,
+    marker: {
+      lat: this.props.lat,
+      lon: this.props.lon
+    }
   }
 
   mapRef = createRef();
 
   refmarker = React.createRef()
   
-  updatePosition = () => {
-    const { lat, lng } = this.refmarker.current.leafletElement.getLatLng()
-    // https://api.instagram.com/v1/users/self/media/recent/?access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c&count=3
-    // get location id from latitude and longitude
-    console.log(lat, lng);
-    fetch(`https://api.instagram.com/v1/locations/search?lat=${lat}&lng=${lng}&access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c`)
+  getPosts = (locationID) => {
+    axios.get(`https://api.instagram.com/v1/locations/${locationID}/media/recent?access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c&count=10`)
       .then(response=>{
-        return response.json();
-      })
-      .then(json=>{
-        console.log(json);
-        // push location id to the state
         this.setState({
-          location: json.data[0].id 
-        });
-        // get recent posts from instagram api from the same location id
-        fetch(`https://api.instagram.com/v1/locations/${this.state.location}/media/recent?access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c&count=10`)
-          .then(response=>{
-            return response.json();
-          })
-          .then(json=>{
-            // push posts to posts state
-            this.setState({
-              posts: [...json.data]
-            });
-            console.log(this.state.posts);
-          })
+          posts: [...response.data.data]
+        })
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+
+  }
+
+  getLocation = (lat, lng) => {
+    axios.get(`https://api.instagram.com/v1/locations/search?lat=${lat}&lng=${lng}&access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c`)
+      .then(response=>{
+        this.getPosts(response.data.data[0].id);
+      })
+      .catch(error=>{
+        console.log(error);
       })
   }
 
-  
+  updatePosition = () => {
+    // get lat and lng from ref marker
+    const { lat, lng } = this.refmarker.current.leafletElement.getLatLng()
+    this.setState({
+      marker: {
+        lat: lat,
+        lon: lng
+      }
+    });
+
+    this.getLocation(this.state.marker.lat, this.state.marker.lon);
+  }
+
+
+  componentDidMount(){
+   this.getLocation(this.state.marker.lat, this.state.marker.lon);
+  }
 
   render() {
     // check if user location is found, if is then allocate the longitude and latitude to marker and place it on the map
@@ -52,7 +68,7 @@ export default class MapComp extends Component {
       <Marker 
       draggable={true}
       onDragend={this.updatePosition}
-      position={[this.props.lat, this.props.lon]}
+      position={[this.state.marker.lat, this.state.marker.lon]}
       ref={this.refmarker}
       >
       </Marker>

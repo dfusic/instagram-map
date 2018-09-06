@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapComp from './Map';
 import './App.css';
+import ReactLoading from 'react-loading';
 
 class App extends Component {
   state = {
@@ -43,13 +44,24 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-       <MapComp 
+    const map = this.state.map.foundUserLocation ? (
+      <MapComp 
        lat={this.state.map.latitude}
        lon={this.state.map.longitude}
        foundUserLocation={this.state.map.foundUserLocation}
        />
+    ) : (
+      <ReactLoading 
+      type={"bars"}
+      color={"#c13584"}
+      height={128}
+      width={128}
+      />
+    );
+
+    return (
+      <div className="App">
+       {map}
       </div>
     );
   }
