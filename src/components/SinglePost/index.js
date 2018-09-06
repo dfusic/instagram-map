@@ -7,6 +7,11 @@ const SinglePost = props => {
       <img src={props.img} alt="test" className="SinglePost__img"/>
       <h2 className="SinglePost__author">{props.author}</h2>
       <a href={props.link} className="SinglePost__link">See post</a>
+      {
+        props.caption ? (
+          <p className="SinglePost__caption">{props.caption}</p>
+        ) : null
+      }
     </article>
   )
 }

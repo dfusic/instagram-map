@@ -43,7 +43,6 @@ export default class MapComp extends Component {
         console.log(error);
       })
   }
-
   updatePosition = () => {
     // get lat and lng from ref marker
     const { lat, lng } = this.refmarker.current.leafletElement.getLatLng()
@@ -53,11 +52,8 @@ export default class MapComp extends Component {
         lon: lng
       }
     });
-
     this.getLocation(this.state.marker.lat, this.state.marker.lon);
   }
-
-
   componentDidMount(){
    this.getLocation(this.state.marker.lat, this.state.marker.lon);
   }
@@ -69,8 +65,7 @@ export default class MapComp extends Component {
       draggable={true}
       onDragend={this.updatePosition}
       position={[this.state.marker.lat, this.state.marker.lon]}
-      ref={this.refmarker}
-      >
+      ref={this.refmarker}>
       </Marker>
     ) : null;
 
@@ -78,17 +73,14 @@ export default class MapComp extends Component {
 
     if(this.props.foundUserLocation){
       mapRender = (
-
         <Map
-        center={[this.props.lat, this.props.lon]}
+        center={[this.state.marker.lat, this.state.marker.lon]}
         zoom={15}
         >
-
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
         {marker}
 
         </Map>
