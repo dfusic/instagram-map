@@ -8,6 +8,7 @@
 - - Add initial API fetch with geolocation API
 - - Render the post caption if there is one (if/else)
 - - Make map marker stay in place after selection of new location
+- - Create a fallback if the website is on http and cannot access geolocation api
 - ### *SCSS*
 - - Style the sidebar
 - - Style single post in the sidebar
