@@ -11,7 +11,7 @@ class App extends Component {
       foundUserLocation: false
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     // get user location from geolocation API
     // if browser supports geolocation
     if(navigator.geolocation){
@@ -32,7 +32,7 @@ class App extends Component {
 
       })
     }else{
-      // give map longitude and latitude of Londom 
+      // give map longitude and latitude of London
       this.setState({
         map: {
           longitude: 51,
