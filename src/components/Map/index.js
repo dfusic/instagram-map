@@ -14,6 +14,9 @@ export default class MapComp extends Component {
     marker: {
       lat: this.props.lat,
       lon: this.props.lon
+    },
+    feed: {
+      hidden: this.props.feedHidden
     }
   }
 
@@ -56,6 +59,7 @@ export default class MapComp extends Component {
   }
   componentDidMount(){
    this.getLocation(this.state.marker.lat, this.state.marker.lon);
+   console.log(this.state);
   }
 
   render() {
@@ -92,6 +96,7 @@ export default class MapComp extends Component {
         {mapRender}
         <PostFeed 
         posts={this.state.posts}
+        feedHidden={this.state.feed.hidden}
         />
         </div>
     );

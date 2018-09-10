@@ -9,6 +9,9 @@ class App extends Component {
       longitude: '',
       latitude: '',
       foundUserLocation: false
+    },
+    feed: {
+      hidden: false
     }
   }
   componentDidMount(){
@@ -27,6 +30,9 @@ class App extends Component {
             longitude: longitude,
             latitude: latitude,
             foundUserLocation: true,
+          },
+          feed: {
+            hidden: false
           }
         });
 
@@ -38,6 +44,9 @@ class App extends Component {
           longitude: 51,
           latitude: 0.12,
           foundUserLocation: true,
+        },
+        feed: {
+          hidden: false
         }
       });
     }
@@ -49,6 +58,7 @@ class App extends Component {
        lat={this.state.map.latitude}
        lon={this.state.map.longitude}
        foundUserLocation={this.state.map.foundUserLocation}
+       feedHidden={this.state.feed.hidden}
        />
     ) : (
       <ReactLoading 

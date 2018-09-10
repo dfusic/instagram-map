@@ -8,9 +8,23 @@ import SinglePost from '../SinglePost';
 class PostFeed extends Component{
   state = {
     feed: {
-      hidden: false
+      hidden: this.props.feedHidden
+    },
+    buttonStyle : {
+      width: '25px',
+      height: 'auto',
+      cursor: 'pointer'
     }
   };
+  // when the component recieves props, 
+  // pass those props to the state so they can be dynamically changed
+  componentWillReceiveProps(){
+    this.setState({
+      feed: {
+        hidden: this.props.feedHidden
+      }
+    })
+  }
 
   toggleFeed = () => {
     this.setState({
@@ -20,7 +34,7 @@ class PostFeed extends Component{
     })
     console.log(this.state.feed);
   }
-
+  
   render(){
     const posts = this.props.posts ? (
       this.props.posts.map(post=>{
@@ -42,27 +56,31 @@ class PostFeed extends Component{
       />
     );
     // check if the feed should hide
-    const feed = this.state.feed.hidden ? (
-      <h1>test</h1>
-    ) : (
-     <h1>false</h1>
-    );
+    const style = this.state.feed.hidden ? {
+      top: 0,
+      right: '-400px'
+    } : {
+      top: 0,
+      right: 0
+    }
+    // toggle icon
     const icon = this.state.feed.hidden ? (
-      <CloseFeed 
-      handleClick={this.toggleFeed}
-      />
-    ) : (
       <ShowFeed 
       handleClick={this.toggleFeed}
+      style={this.state.buttonStyle}
+      />
+    ) : (
+      <CloseFeed 
+      handleClick={this.toggleFeed}
+      style={this.state.buttonStyle}
       />
     )
     return(
-      <aside className="PostFeed">
+      <aside className="PostFeed" style={style}>
       <div className="PostFeed__header">
-        <h1 className="PostFeed__title">Instagram Map</h1>
-        {feed}
         {icon}
-        </div>
+        <h1 className="PostFeed__title">Instagram Map</h1>
+      </div>
         {posts}
       </aside>
     )

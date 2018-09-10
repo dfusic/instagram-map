@@ -1,7 +1,6 @@
 .PostFeed{
   position: absolute;
-  top: 0;
-  right: 0;
+  transition: right 200ms ease-in-out;
   height: 100vh;
   background-color: #efefef;
   box-sizing: border-box;
@@ -18,5 +17,10 @@
     font-size: 2em;
     color: #1a1a1a;
 
+  }
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
