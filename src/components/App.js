@@ -12,45 +12,76 @@ class App extends Component {
     },
     feed: {
       hidden: false
-    }
+    },
+    cities: [
+      {
+        name: "London",
+        lat: 51.5074,
+        lon: 0.1278
+      },
+      {
+        name: "Paris",
+        lat: 40.7128,
+        lon: 74.0060
+      },
+      {
+        name: "Moscow",
+        lat: 55.7558,
+        lon: 37.6173
+      },
+      {
+        name: "Hong Kong",
+        lat: 22.3964,
+        lon: 114.1095
+      },
+      {
+        name: "Sydney",
+        lat: 33.8688,
+        lon: 151.2093
+      }
+    ]
   }
   componentDidMount(){
     // get user location from geolocation API
     // if browser supports geolocation
-    if(navigator.geolocation){
+   
       // get current user position
-      navigator.geolocation.getCurrentPosition((position)=>{
-
-        //get user latitude and longitude
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        
-        this.setState({
-          map: {
-            longitude: longitude,
-            latitude: latitude,
-            foundUserLocation: true,
-          },
-          feed: {
-            hidden: false
-          }
-        });
-
-      })
-    }else{
-      // give map longitude and latitude of London
+    
+    navigator.geolocation.getCurrentPosition((position)=>{
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
       this.setState({
         map: {
-          longitude: 51,
-          latitude: 0.12,
+          longitude: longitude,
+          latitude: latitude,
           foundUserLocation: true,
         },
         feed: {
           hidden: false
         }
       });
+    },(error)=>{
+      // random city on every load where the location is not specified
+      // get random city latitude and longitude from the list
+      let randNumb = Math.floor(Math.random() * this.state.cities.length);
+      let latitude = this.state.cities[randNumb].lat;
+      let longitude = this.state.cities[randNumb].lon;
+      this.setState({
+        map: {
+          longitude: longitude,
+          latitude: latitude,
+          foundUserLocation: true,
+        },
+        feed: {
+          hidden: false
+        }
+      });
+    }, {
+      // geolocator options
+      enableHighAccuracy: true,
+    })
+
     }
-  }
 
   render() {
     const map = this.state.map.foundUserLocation ? (
