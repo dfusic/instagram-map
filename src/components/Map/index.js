@@ -1,8 +1,9 @@
 import React, { createRef, Component } from 'react'
 import './Map.scss';
 import axios from 'axios';
+import L from 'leaflet';
 import { Map, TileLayer, Marker } from 'react-leaflet'
-
+import marker from '../../assets/marker.svg';
 import PostFeed from '../PostFeed';
 
 export default class MapComp extends Component {
@@ -13,7 +14,10 @@ export default class MapComp extends Component {
     loaded: false,
     marker: {
       lat: this.props.lat,
-      lon: this.props.lon
+      lon: this.props.lon,
+      icon: L.icon({
+        iconUrl: marker
+      })
     },
     feed: {
       hidden: this.props.feedHidden
@@ -52,7 +56,8 @@ export default class MapComp extends Component {
     this.setState({
       marker: {
         lat: lat,
-        lon: lng
+        lon: lng,
+        icon: this.state.marker.icon
       }
     });
     this.getLocation(this.state.marker.lat, this.state.marker.lon);
@@ -69,7 +74,9 @@ export default class MapComp extends Component {
       draggable={true}
       onDragend={this.updatePosition}
       position={[this.state.marker.lat, this.state.marker.lon]}
-      ref={this.refmarker}>
+      ref={this.refmarker}
+      icon={this.state.marker.icon}
+      >
       </Marker>
     ) : null;
 

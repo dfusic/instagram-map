@@ -92,7 +92,9 @@ class PostFeed extends Component{
         {icon}
         <h1 className="PostFeed__title">Instagram Map</h1>
       </div>
+        <div className="PostFeed__feed">
         {posts}
+        </div>
       </aside>
     )
   }
