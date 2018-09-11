@@ -63,6 +63,7 @@ class App extends Component {
     },(error)=>{
       // random city on every load where the location is not specified
       // get random city latitude and longitude from the list
+      console.log(error);
       let randNumb = Math.floor(Math.random() * this.state.cities.length);
       let latitude = this.state.cities[randNumb].lat;
       let longitude = this.state.cities[randNumb].lon;
