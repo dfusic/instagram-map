@@ -38,25 +38,11 @@ class PostFeed extends Component{
   render(){
     const posts = this.props.posts ? (
       this.props.posts.map(post=>{
-         // check if post has caption, if it has then pass it to the component
-        // else render the component without caption
-        if(post.caption === null){
+         // if there are posts, pass every post to its own component
           return <SinglePost 
-          img={post.images.standard_resolution.url}
-          author={post.user.username}
-          link={post.link}
+          post={post}
           key={post.id}
-          />
-        }else{
-          return <SinglePost 
-          img={post.images.standard_resolution.url}
-          author={post.user.username}
-          link={post.link}
-          key={post.id}
-          caption={post.caption.text}
-        />
-        }
-       
+          />     
       })
     ) : (
       <ReactLoading 
@@ -79,11 +65,13 @@ class PostFeed extends Component{
       <ShowFeed 
       handleClick={this.toggleFeed}
       style={this.state.buttonStyle}
+      color={"#fff"}
       />
     ) : (
       <CloseFeed 
       handleClick={this.toggleFeed}
       style={this.state.buttonStyle}
+      color={"#fff"}
       />
     )
     return(
