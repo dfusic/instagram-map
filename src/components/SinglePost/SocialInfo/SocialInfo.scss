@@ -1,0 +1,19 @@
+.SocialInfo{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  &__likes, &__comments{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin: 0 5px;
+    text-align: center;
+  }
+  &__icon{
+    margin: 0 5px;
+    width: 16px;
+    height: 16px;
+  }
+}
