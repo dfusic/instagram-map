@@ -98,6 +98,7 @@
     "react-leaflet": "^2.0.1",
     "react-loading": "^2.0.3",
     "react-slick": "^0.23.1",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "video-react": "^0.13.0"
   }
 }

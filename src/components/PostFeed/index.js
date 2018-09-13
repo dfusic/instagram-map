@@ -14,7 +14,8 @@ class PostFeed extends Component{
       width: '25px',
       height: 'auto',
       cursor: 'pointer'
-    }
+    },
+    hiddenClass: " "
   };
   // when the component recieves props, 
   // pass those props to the state so they can be dynamically changed
@@ -53,13 +54,7 @@ class PostFeed extends Component{
       />
     );
     // check if the feed should hide
-    const style = this.state.feed.hidden ? {
-      top: 0,
-      right: '-400px'
-    } : {
-      top: 0,
-      right: 0
-    }
+    const style = this.state.feed.hidden ? "hidden" : "";
     // toggle icon
     const icon = this.state.feed.hidden ? (
       <ShowFeed 
@@ -75,7 +70,7 @@ class PostFeed extends Component{
       />
     )
     return(
-      <aside className="PostFeed" style={style}>
+      <aside className={`PostFeed ${style}`}>
       <div className="PostFeed__header">
         {icon}
         <h1 className="PostFeed__title">Instagram Map</h1>

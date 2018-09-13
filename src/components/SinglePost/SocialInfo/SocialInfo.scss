@@ -17,3 +17,11 @@
     height: 16px;
   }
 }
+@media screen and (max-width: 768px){
+  .SocialInfo{
+    flex-direction: column;
+    &__desc{
+      margin: 3.5px;
+    }
+  }
+}

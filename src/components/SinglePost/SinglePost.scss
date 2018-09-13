@@ -35,3 +35,28 @@
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 768px){
+  .SinglePost{
+    padding: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    &__img{
+      width: 60%;
+      padding: 10px 0;
+      height: auto;
+      margin: 0 auto;
+    }
+    &__head{
+      flex-direction: column;
+    }
+    &__link{
+      margin: 0;
+    }
+    &__author{
+      margin: 10px 0;
+    }
+  }
+}

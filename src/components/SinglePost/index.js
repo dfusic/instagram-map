@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+import "video-react/dist/video-react.css"; // import css/ or import scss 
+import {Player} from 'video-react';
 import SocialInfo from './SocialInfo';
 import './SinglePost.scss';
 
@@ -11,7 +13,18 @@ class SinglePost extends Component {
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            infinite: false,
+            dots: false
+          }
+        }
+      ]
     },
     post: this.props.post,
   }
@@ -24,10 +37,14 @@ class SinglePost extends Component {
       <p className="SinglePost__caption">{this.state.post.caption.text}</p>
     ) : null;
     // check if theres multiple images
-    const image = this.state.post.type === "carousel" ? (
-      <Slider {...this.state.settings}>
+
+    let image = null;
+    if(this.state.post.type === "carousel"){
+      image = (
+        <Slider {...this.state.settings}>
         {
           this.state.post.carousel_media.map(img=>{
+            console.log(img);
             return (
               <div key={this.state.post.id}>
                 <img src={img.images.standard_resolution.url} alt={this.state.post.user.username} className="SinglePost__img"/>
@@ -36,9 +53,20 @@ class SinglePost extends Component {
           })
         }
       </Slider>
-    ) : (
-      <img src={this.state.post.images.standard_resolution.url} alt={this.state.post.user.username} className="SinglePost__img"/>
-    );
+      );
+    }else if(this.state.post.type === "image"){
+      image = (
+        <img src={this.state.post.images.standard_resolution.url} alt={this.state.post.user.username} className="SinglePost__img"/>
+      );
+    }else if(this.state.post.type === "video"){
+      image = (
+        <Player>
+          <source src={this.state.post.videos.standard_resolution.url}/>
+        </Player>
+      );
+    }else{
+      console.error("Error happended.");
+    }
 
     return(
       <article className="SinglePost">

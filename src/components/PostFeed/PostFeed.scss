@@ -1,10 +1,12 @@
 .PostFeed{
   position: absolute;
-  transition: right 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   height: 100vh;
   background-color: #efefef;
   box-sizing: border-box;
   width: 500px;
+  top: 0;
+  right: 0;
   z-index: 999999;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -30,5 +32,25 @@
   }
   &__feed{
     padding: 75px 25px;
+  }
+}
+.hidden{
+  right: -400px!important;
+  top: 0;
+}
+@media screen and (max-width: 768px){
+  .PostFeed{
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    &__header{
+      width: calc(100% - 40px);
+    }
+  } 
+  .hidden{
+    left: 90%!important;
   }
 }
