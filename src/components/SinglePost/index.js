@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Slider from 'react-slick';
+import Carousel from 'nuka-carousel';
 import "video-react/dist/video-react.css"; // import css/ or import scss 
 import {Player} from 'video-react';
 import SocialInfo from './SocialInfo';
@@ -8,29 +8,15 @@ import './SinglePost.scss';
 class SinglePost extends Component {
   //"https://api.instagram.com/v1/users/self/media/recent/?access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c&count=3"
   state = {
-    settings: {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            infinite: false,
-            dots: false
-          }
-        }
-      ]
-    },
     post: this.props.post,
   }
   componentDidMount(){
     console.log(this.state.post);  
   }
+  _handleLoadImage = () => {
+    this.carousel.setDimensions()
+  }
+
   render(){
     // if there's post captio then display it
     const caption = this.state.post.caption !== null ? (
@@ -41,22 +27,27 @@ class SinglePost extends Component {
     let image = null;
     if(this.state.post.type === "carousel"){
       image = (
-        <Slider {...this.state.settings}>
+        <Carousel
+        ref={c => this.carousel = c}
+        initialSlideHeight={300}
+        >
         {
           this.state.post.carousel_media.map(img=>{
-            console.log(img);
             return (
-              <div key={this.state.post.id}>
-                <img src={img.images.standard_resolution.url} alt={this.state.post.user.username} className="SinglePost__img"/>
-              </div>
+              <img src={img.images.standard_resolution.url} alt={this.state.post.user.username} onLoad={this._handleLoadImage} />
             )
           })
         }
-      </Slider>
+        </Carousel>
       );
     }else if(this.state.post.type === "image"){
       image = (
-        <img src={this.state.post.images.standard_resolution.url} alt={this.state.post.user.username} className="SinglePost__img"/>
+        <img 
+        src={this.state.post.images.standard_resolution.url} 
+        alt={this.state.post.user.username} 
+        className="SinglePost__img"
+        key={this.state.post.id}
+        />
       );
     }else if(this.state.post.type === "video"){
       image = (

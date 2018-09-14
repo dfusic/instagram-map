@@ -5,3 +5,13 @@ html, body{
   overflow: hidden;
   font-family: 'Nunito', sans-serif;
 }
+
+.leaflet-marker-icon{
+  position: relative!important;
+  top: -20px!important;
+}
+ .video-react-big-play-button-left{
+   top: 50%;
+   left: 50%;
+   transform: translateX(-50%) translateY(-50%)!important;
+ }
