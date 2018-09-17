@@ -6,9 +6,8 @@
   box-sizing: border-box;
   width: 500px;
   top: 0;
-  right: 0;
+  left: 0;
   z-index: 999999;
-  overflow-y: scroll;
   overflow-x: hidden;
   -webkit-box-shadow: -5px 0px 44px -15px rgba(0,0,0,0.25);
   -moz-box-shadow: -5px 0px 44px -15px rgba(0,0,0,0.25);
@@ -20,7 +19,6 @@
     position: fixed;
     padding: 0 25px;
     z-index: 9999;
-    background: radial-gradient(circle at 30% 107%, rgba(#f5f1c2,.5) 0%, rgba(#f5f1c2, 1) 5%, rgba(#ffa29a, 1) 45%,rgba(#ff9fe0, 1) 60%,rgba(rgb(164, 187, 255), 1) 90%);
     width: 450px;
     -webkit-box-shadow: 0px 2px 35px -6px rgba(0,0,0,0.35);
     -moz-box-shadow: 0px 2px 35px -6px rgba(0,0,0,0.35);
@@ -31,26 +29,10 @@
     }
   }
   &__feed{
-    padding: 75px 25px;
+    padding: 200px 25px 0 25px;
   }
 }
 .hidden{
-  right: -400px!important;
+  left: -400px!important;
   top: 0;
-}
-@media screen and (max-width: 768px){
-  .PostFeed{
-    display: block;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    &__header{
-      width: calc(100% - 40px);
-    }
-  } 
-  .hidden{
-    left: 90%!important;
-  }
 }

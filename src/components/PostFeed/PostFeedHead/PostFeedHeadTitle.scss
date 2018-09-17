@@ -1,0 +1,25 @@
+.PostFeedHead{
+  position: fixed;
+  width: 500px;
+  &-title{
+    text-align: center;
+    background-color: #4C5FD7;
+    padding: 20px;
+    h3{
+      color: white;
+      padding: 0;
+    } 
+  }
+  &-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(217,217,217,.5);
+    h3{
+      font-size: 14px;
+      color: #434343;
+    }
+  }
+}

@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import './PostFeed.scss';
-import ReactLoading from 'react-loading';
-import ShowFeed from './ShowFeed';
-import CloseFeed from './CloseFeed';
 import SinglePost from '../SinglePost';
+import PostFeedHead from './PostFeedHead';
+import PostFeedToggle from './PostFeedToggle';
 
 class PostFeed extends Component{
   state = {
@@ -45,38 +44,23 @@ class PostFeed extends Component{
           key={post.id}
           />     
       })
-    ) : (
-      <ReactLoading 
-      type={"bars"}
-      color={"#c13584"}
-      height={128}
-      width={128}
-      />
-    );
+    ) : null;
     // check if the feed should hide
     const style = this.state.feed.hidden ? "hidden" : "";
     // toggle icon
-    const icon = this.state.feed.hidden ? (
-      <ShowFeed 
-      handleClick={this.toggleFeed}
-      style={this.state.buttonStyle}
-      color={"#fff"}
-      />
-    ) : (
-      <CloseFeed 
-      handleClick={this.toggleFeed}
-      style={this.state.buttonStyle}
-      color={"#fff"}
-      />
-    )
     return(
       <aside className={`PostFeed ${style}`}>
-      <div className="PostFeed__header">
-        {icon}
-        <h1 className="PostFeed__title">Instagram Map</h1>
-      </div>
+        <PostFeedHead 
+        location={this.props.location}
+        postCount={this.props.posts.length}
+        />
+        <PostFeedToggle 
+        hidden={this.state.feed.hidden}
+        handleClick={this.toggleFeed}
+        />
         <div className="PostFeed__feed">
         {posts}
+        
         </div>
       </aside>
     )

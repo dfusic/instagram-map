@@ -45,6 +45,9 @@ export default class MapComp extends Component {
     axios.get(`https://api.instagram.com/v1/locations/search?lat=${lat}&lng=${lng}&access_token=6899647538.0912694.f76d2fb4ade2471f98d0e1c89053141c`)
       .then(response=>{
         this.getPosts(response.data.data[0].id);
+        this.setState({
+          location: response.data.data[0].name
+        })
       })
       .catch(error=>{
         console.log(error);
@@ -64,7 +67,6 @@ export default class MapComp extends Component {
   }
   componentDidMount(){
    this.getLocation(this.state.marker.lat, this.state.marker.lon);
-   console.log(this.state);
   }
 
   render() {
@@ -102,6 +104,7 @@ export default class MapComp extends Component {
         <div className="Map">
         {mapRender}
         <PostFeed 
+        location={this.state.location}
         posts={this.state.posts}
         feedHidden={this.state.feed.hidden}
         />
