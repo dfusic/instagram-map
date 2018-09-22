@@ -4,7 +4,7 @@
   height: 100vh;
   background-color: #efefef;
   box-sizing: border-box;
-  width: 500px;
+  width: 30%;
   top: 0;
   left: 0;
   z-index: 999999;
@@ -33,6 +33,6 @@
   }
 }
 .hidden{
-  left: -400px!important;
+  left: -25%!important;
   top: 0;
 }

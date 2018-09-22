@@ -41,13 +41,15 @@ class App extends Component {
       }
     ]
   }
-  componentDidMount(){
+
+
+  componentDidMount() {
     // get user location from geolocation API
     // if browser supports geolocation
-   
-      // get current user position
-    
-    navigator.geolocation.getCurrentPosition((position)=>{
+
+    // get current user position
+
+    navigator.geolocation.getCurrentPosition((position) => {
       let latitude = position.coords.latitude;
       let longitude = position.coords.longitude;
       this.setState({
@@ -60,7 +62,7 @@ class App extends Component {
           hidden: false
         }
       });
-    },(error)=>{
+    }, (error) => {
       // random city on every load where the location is not specified
       // get random city latitude and longitude from the list
       console.log(error);
@@ -78,32 +80,32 @@ class App extends Component {
         }
       });
     }, {
-      // geolocator options
-      enableHighAccuracy: true,
-    })
+        // geolocator options
+        enableHighAccuracy: true,
+      })
 
-    }
+  }
 
   render() {
     const map = this.state.map.foundUserLocation ? (
-      <MapComp 
-       lat={this.state.map.latitude}
-       lon={this.state.map.longitude}
-       foundUserLocation={this.state.map.foundUserLocation}
-       feedHidden={this.state.feed.hidden}
-       />
-    ) : (
-      <ReactLoading 
-      type={"bars"}
-      color={"#c13584"}
-      height={128}
-      width={128}
+      <MapComp
+        lat={this.state.map.latitude}
+        lon={this.state.map.longitude}
+        foundUserLocation={this.state.map.foundUserLocation}
+        feedHidden={this.state.feed.hidden}
       />
-    );
+    ) : (
+        <ReactLoading
+          type={"bars"}
+          color={"#c13584"}
+          height={128}
+          width={128}
+        />
+      );
 
     return (
       <div className="App">
-       {map}
+        {map}
       </div>
     );
   }
