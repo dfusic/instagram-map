@@ -6,6 +6,7 @@ import { Map, TileLayer, Marker } from 'react-leaflet'
 import marker from '../../assets/marker.svg';
 import PostFeed from '../PostFeed';
 import MapSearch from './MapSearch';
+import CurrentLocation from './CurrentLocation';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 export default class MapComp extends Component {
@@ -113,8 +114,18 @@ export default class MapComp extends Component {
         console.error(error);
       })
   }
-
-
+  // on click of the button get users current location from geolocation api and focus the map on it
+  handleCurrentLocation = e => {
+    e.preventDefault();
+    this.setState({
+      marker: {
+        lat: this.props.lat,
+        lon: this.props.lon,
+        icon: this.state.marker.icon
+      }
+    })
+    this.getLocation(this.state.marker.lat, this.state.marker.lon);
+  }
   render() {
     // check if user location is found, if is then allocate the longitude and latitude to marker and place it on the map
     const marker = this.props.foundUserLocation ? (
@@ -151,6 +162,9 @@ export default class MapComp extends Component {
         <MapSearch
           handleSearch={e => this.handleSearch(e)}
           getSubmitData={this.getSubmitData}
+        />
+        <CurrentLocation
+          handleCurrentLocation={e => this.handleCurrentLocation(e)}
         />
         {mapRender}
         <PostFeed
